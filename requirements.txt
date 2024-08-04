@@ -10,3 +10,11 @@ psycopg2==2.9.1
 psycopg2-binary==2.9.9
 SQLAlchemy==1.4.18
 Werkzeug==2.0.1
+
+click==7.1.2
+dnspython==2.0.0
+Flask==1.1.2
+Flask-PyMongo==2.3.0
+itsdangerous==1.1.0
+pymongo==3.11.0
+Werkzeug==1.0.1
