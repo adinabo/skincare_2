@@ -1,22 +1,15 @@
 import os
-from skincare_package import app
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for
+)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+
 if os.path.exists("env.py"):
     import env
 
-if __name__ == "__main__":
-    app.run(
-        host=os.environ.get("IP"),
-        port=int(os.environ.get("PORT")),
-        debug=os.environ.get("DEBUG")
-    )
-
-# login and register forms code reused from mini project
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
@@ -25,13 +18,11 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-
 @app.route("/")
 @app.route("/get_tasks")
 def get_tasks():
     tasks = mongo.db.tasks.find()
     return render_template("tasks.html", tasks=tasks)
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -56,7 +47,6 @@ def register():
         return redirect(url_for("profile", username=session["user"]))
 
     return render_template("register.html")
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -86,7 +76,6 @@ def login():
 
     return render_template("login.html")
 
-
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     # grab the session user's username from db
@@ -98,7 +87,6 @@ def profile(username):
 
     return redirect(url_for("login"))
 
-
 @app.route("/logout")
 def logout():
     # remove user from session cookie
@@ -106,8 +94,9 @@ def logout():
     session.pop("user")
     return redirect(url_for("login"))
 
-
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)
+    app.run(
+        host=os.environ.get("IP"),
+        port=int(os.environ.get("PORT")),
+        debug=os.environ.get("DEBUG")
+    )
