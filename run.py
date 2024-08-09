@@ -19,10 +19,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 @app.route("/")
-@app.route("/get_user_routines")
-def get_tasks():
-    tasks = mongo.db.tasks.find()
-    return render_template("routines.html", tasks=tasks)
+@app.route("/user_routines")
+def user_routines(): # replaces get_tasks
+    user_routines = mongo.db.get_user_routines.find()
+    return render_template("routines.html", user_routines=user_routines)
     
 
 @app.route("/register", methods=["GET", "POST"])
