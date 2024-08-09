@@ -18,6 +18,13 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+def index():
+    if mongo.db:
+        return "Database connected"
+    else:
+        return "Database not connected", 500
+
+
 @app.route("/")
 @app.route("/users_routines")
 def users_routines(): # replaces get_tasks
