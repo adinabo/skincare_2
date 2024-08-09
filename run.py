@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/users_routines")
 def users_routines(): # replaces get_tasks
-    users_routines = mongo.db.user_routines.find()
+    users_routines = mongo.db.users_routines.find()
     return render_template("routines.html", users_routines=users_routines)
     
 
